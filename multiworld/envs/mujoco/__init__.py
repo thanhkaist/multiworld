@@ -6,6 +6,94 @@ LOGGER = logging.getLogger(__name__)
 REGISTERED = False
 
 
+def register_reaching_envs():
+    global REGISTERED
+    if REGISTERED:
+        return
+    REGISTERED = True
+    LOGGER.info("Registering multiworld mujoco gym environments")
+    from multiworld.envs.mujoco.cameras import (
+        sawyer_init_camera_zoomed_in
+    )
+    """
+    Reaching tasks
+    """
+
+    register(
+        id='SawyerReachXYEnv-v1',
+        entry_point='multiworld.envs.mujoco.sawyer_xyz.sawyer_reach:SawyerReachXYEnv',
+        tags={
+            'git-commit-hash': '2d95c75',
+            'author': 'murtaza'
+        },
+        kwargs={
+            'hide_goal_markers': True,
+            'norm_order': 2,
+        },
+    )
+
+    register(
+        id='SawyerReachXYZEnv-v0',
+        entry_point='multiworld.envs.mujoco.sawyer_xyz.sawyer_reach:SawyerReachXYZEnv',
+        tags={
+            'git-commit-hash': '7b3113b',
+            'author': 'vitchyr'
+        },
+        kwargs={
+            'hide_goal_markers': False,
+            'norm_order': 2,
+        },
+    )
+
+    register(
+        id='SawyerReachXYZEnv-v1',
+        entry_point='multiworld.envs.mujoco.sawyer_xyz.sawyer_reach:SawyerReachXYZEnv',
+        tags={
+            'git-commit-hash': 'bea5de',
+            'author': 'murtaza'
+        },
+        kwargs={
+            'hide_goal_markers': True,
+            'norm_order': 2,
+        },
+    )
+
+    register(
+        id='SawyerReachTorqueEnv-v0',
+        entry_point='multiworld.envs.mujoco.sawyer_torque.sawyer_torque_reach:SawyerReachTorqueEnv',
+        tags={
+            'git-commit-hash': '0892abd',
+            'author': 'murtaza'
+        },
+        kwargs={
+            'keep_vel_in_obs': True,
+            'use_safety_box': False,
+            'torque_action_scale':100,
+            'gripper_action_scale':1,
+        },
+    )
+
+    register(
+        id='Image48SawyerReachXYEnv-v1',
+        entry_point=create_image_48_sawyer_reach_xy_env_v1,
+        tags={
+            'git-commit-hash': '2d95c75',
+            'author': 'murtaza'
+        },
+    )
+    register(
+        id='Image84SawyerReachXYEnv-v1',
+        entry_point=create_image_84_sawyer_reach_xy_env_v1,
+        tags={
+            'git-commit-hash': '2d95c75',
+            'author': 'murtaza'
+        },
+    )
+
+
+
+
+
 def register_mujoco_envs():
     global REGISTERED
     if REGISTERED:
